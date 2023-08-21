@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_purchase_requests_form" model="ir.ui.view">
+        <field name="name">purchase.requestss.form</field>
+        <field name="model">purchase.requests</field>
+        <field name="arch" type="xml">
+
+            <form>
+                <header>
+                    <button name="action_submit" string="Submit For Approval" type="object"
+                            attrs="{'invisible':[('status_selection','!=','draft')]}"/>
+
+                    <button name="action_cancel" string="Cancel" type="object"
+                            attrs="{'invisible':[('status_selection','!=','draft')]}"/>
+                    <button name="action_approve" string="Approve" type="object"
+                            attrs="{'invisible':[('status_selection','!=','to_be_approved')]}"/>
+                    <!--                    <button name="action_reject" string="Reject" type="object"-->
+                    <!--                            attrs="{'invisible':[('status_selection','!=','to_be_approved')]}"/>-->
+                    <button name="%(action_reject_request)d" string="Reject" type="action"
+                            attrs="{'invisible':[('status_selection','!=','to_be_approved')]}"/>
+
+
+                    <button name="action_reset" string="Reset to Draft" type="object"
+                            attrs="{'invisible':[('status_selection','!=','cancel')]}"/>
+
+                    <field name="status_selection" widget="statusbar" nolabel="1" readonly="1"/>
+                </header>
+                <sheet>
+
+                    <group>
+
+
+                        <field name="request_name"/>
+                        <field name="requested_by_id"/>
+                        <field name="start_date"/>
+                        <field name="end_date"/>
+                        <field name="total_price"/>
+                        <field name="rejection_reason" attrs="{'invisible':[('status_selection','!=','reject')]}"/>
+                        <!--                        attrs="{'invisible':[('status_selection','!=','reject')]}"-->
+
+
+                    </group>
+
+                    <notebook>
+                        <page string="Orderlines" name="orderlines">
+                            <field name="order_lines_ids">
+                                <tree>
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="cost_price"/>
+                                    <field name="total"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="product_id"/>
+                                        <field name="description"/>
+                                        <field name="quantity"/>
+                                        <field name="cost_price"/>
+                                        <field name="total"/>
+                                    </group>
+                                </form>
+
+                            </field>
+                        </page>
+                    </notebook>
+
+                </sheet>
+
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="view_purchase_requests_tree" model="ir.ui.view">
+        <field name="name">purchase.requests.tree</field>
+        <field name="model">purchase.requests</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="request_name"/>
+                <field name="requested_by_id"/>
+                <field name="start_date"/>
+                <field name="end_date"/>
+                <field name="status_selection"/>
+                <field name="total_price"/>
+                <field name="rejection_reason" attrs="{'invisible':[('status_selection','!=','reject')]}"/>
+                <field name="order_lines_ids"/>
+
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="action_purchase_requests" model="ir.actions.act_window">
+        <field name="name">Purchase Requests</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.requests</field>
+        <field name="view_mode">tree,form</field>
+
+    </record>
+
+    <menuitem
+            id="menu_purchase_requests"
+            name="Purchase Requests"
+            parent="purchase.menu_procurement_management"
+            action="action_purchase_requests"
+            sequence="10"/>
+</odoo>
