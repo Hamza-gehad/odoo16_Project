@@ -10,6 +10,7 @@ class RejectRequestWizard(models.TransientModel):
 
 
 
+
     def action_reject(self):
         purch_req = self.env['purchase.requests'].browse([self.env.context.get('active_id')])
         for rec in self:

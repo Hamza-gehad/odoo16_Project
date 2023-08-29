@@ -19,6 +19,8 @@
                     <!--                            attrs="{'invisible':[('status_selection','!=','to_be_approved')]}"/>-->
                     <button name="%(action_reject_request)d" string="Reject" type="action"
                             attrs="{'invisible':[('status_selection','!=','to_be_approved')]}"/>
+                    <button name="%(action_purchase_order_req_form)d" string="create PO" type="action"
+                            attrs="{'invisible':['|',('status_selection','!=','approve'),('no_po','=','False')]}"/>
 
 
                     <button name="action_reset" string="Reset to Draft" type="object"
@@ -27,30 +29,40 @@
                     <field name="status_selection" widget="statusbar" nolabel="1" readonly="1"/>
                 </header>
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" type="object" name="action_view_po"
+                                icon="fa-usd">
+                            <field string="Purchase Orders" name="order_count" widget="statinfo"/>
+                        </button>
+                    </div>
 
                     <group>
 
 
-                        <field name="request_name"/>
-                        <field name="requested_by_id"/>
-                        <field name="start_date"/>
-                        <field name="end_date"/>
-                        <field name="total_price"/>
+                        <field name="request_name" attrs="{'readonly':[('status_selection','=','approve')]}"/>
+
+                        <field name="requested_by_id" attrs="{'readonly':[('status_selection','=','approve')]}"/>
+                        <field name="start_date" attrs="{'readonly':[('status_selection','=','approve')]}"/>
+                        <field name="end_date" attrs="{'readonly':[('status_selection','=','approve')]}"/>
+                        <field name="total_price" attrs="{'readonly':[('status_selection','=','approve')]}"/>
                         <field name="rejection_reason" attrs="{'invisible':[('status_selection','!=','reject')]}"/>
                         <!--                        attrs="{'invisible':[('status_selection','!=','reject')]}"-->
+                        <field name="no_po" invisible="1"/>
 
 
                     </group>
 
                     <notebook>
-                        <page string="Orderlines" name="orderlines">
-                            <field name="order_lines_ids">
+                        <page string="Orderlines" name="orderlines" create="1">
+                            <field name="order_lines_ids" attrs="{'readonly':[('status_selection','=','approve')]}">
                                 <tree>
                                     <field name="product_id"/>
                                     <field name="description"/>
                                     <field name="quantity"/>
                                     <field name="cost_price"/>
                                     <field name="total"/>
+                                    <field name="qntty_remain"/>
+
                                 </tree>
                                 <form>
                                     <group>
@@ -80,6 +92,7 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="request_name"/>
+
                 <field name="requested_by_id"/>
                 <field name="start_date"/>
                 <field name="end_date"/>

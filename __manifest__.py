@@ -1,13 +1,16 @@
 {
     'name': 'purchase requests',
     'author': 'hamza',
-    'depends': ['purchase'],
+    'depends': ['purchase', 'product'],
     'data': [
         'security/security.xml',
         'data/email_data.xml',
         'security/ir.model.access.csv',
         'views/purchase_requests.xml',
-        'wizards/rej_request.xml'
+        'views/purchase_order_lines.xml',
+        'wizards/rej_request.xml',
+        'wizards/purchase_order.xml',
+        'reports/report.xml'
 
     ]
 }

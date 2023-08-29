@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_purchase_order_req_form" model="ir.ui.view">
+        <field name="name">purchase.order.req.form</field>
+        <field name="model">purchase.order.wizard</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+
+                    <field name="purchase_order_id"/>
+
+                </group>
+                <notebook>
+                    <page string="Orderlines" name="orderlines_po">
+                        <field name="po_order_lines_ids">
+                            <tree>
+                                <field name="product_id"/>
+                                <field name="description"/>
+                                <field name="quantity"/>
+                                <field name="cost_price"/>
+                                <field name="total"/>
+                            </tree>
+                            <form>
+                                <group>
+                                    <field name="product_id"/>
+                                    <field name="description"/>
+                                    <field name="quantity"/>
+                                    <field name="cost_price"/>
+                                    <field name="total"/>
+                                </group>
+                            </form>
+
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="create_po" string="create PO" type="object"/>
+                </footer>
+            </form>
+
+        </field>
+    </record>
+    <record id="action_purchase_order_req_form" model="ir.actions.act_window">
+        <field name="name">Purchase Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+
+    </record>
+</odoo>
