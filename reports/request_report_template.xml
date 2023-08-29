@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_purchase_request_template">
+        <t t-call="web.html_container">
+
+            <t t-call="web.basic_layout">
+                <t t-foreach="docs" t-as="o">
+                    <div class="page">
+                        <div class="oe_structure"/>
+                        <div class="row">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <strong>request name</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.request_name"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>requested by</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.requested_by_id"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>start date</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.start_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>end date</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.end_date"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>total price</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.total_price"/>
+                                    </td>
+                                </tr>
+                                <tr attrs="{'invisible':[('status_selection','!=','reject')]}">
+                                    <td>
+                                        <strong>rejection reason</strong>
+                                    </td>
+                                    <td>
+                                        <span t-field="o.rejection_reason"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>order lines:</strong>
+                                    </td>
+                                </tr>
+                            </table>
+                            <br>
+
+                            </br>
+
+                        </div>
+
+                    </div>
+                    <div>
+                        <div class="row">
+                            <t t-if="o.order_lines_ids">
+                                <table>
+
+                                    <t t-foreach="o.order_lines_ids" t-as="line">
+
+
+                                        <tr>
+                                            <td>
+                                                <strong>product id</strong>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.product_id"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>description</strong>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.description"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>quantity</strong>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.quantity"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>cost price</strong>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.cost_price"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <strong>total</strong>
+                                            </td>
+                                            <td>
+                                                <span t-field="line.total"/>
+                                            </td>
+                                        </tr>
+
+
+                                    </t>
+
+                                </table>
+                            </t>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

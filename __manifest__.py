@@ -10,7 +10,8 @@
         'views/purchase_order_lines.xml',
         'wizards/rej_request.xml',
         'wizards/purchase_order.xml',
-        'reports/report.xml'
+        'reports/report.xml',
+        'reports/request_report_template.xml'
 
     ]
 }

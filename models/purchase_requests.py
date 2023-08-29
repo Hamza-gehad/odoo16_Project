@@ -24,6 +24,7 @@ class PurchaseRequest(models.Model):
     order_count = fields.Integer(compute='compute_orders', string="order count")
     total_qty = fields.Float(compute='compute_total_qty')
     no_po = fields.Boolean(compute='compute_check_qty')
+    order_lines_count = fields.Integer(compute='compute_lines_count')
 
     def action_submit(self):
         for rec in self:
@@ -63,6 +64,10 @@ class PurchaseRequest(models.Model):
     def compute_orders(self):
         for rec in self:
             rec.order_count = len(rec.po_ids)
+    @api.depends('order_lines_ids')
+    def compute_lines_count(self):
+        for rec in self:
+            rec.order_lines_count = len(rec.order_lines_ids)
 
 
     def action_view_po(self):
